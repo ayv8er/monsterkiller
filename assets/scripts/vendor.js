@@ -1,6 +1,7 @@
 const monsterHealthBar = document.getElementById("monster-health");
 const playerHealthBar = document.getElementById("player-health");
 const bonusLifeEl = document.getElementById("bonus-life");
+const strongAttackEl = document.getElementById("strong-attack");
 
 const attackBtn = document.getElementById("attack-btn");
 const strongAttackBtn = document.getElementById("strong-attack-btn");
