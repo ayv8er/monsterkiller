@@ -14,6 +14,7 @@ adjustHealthBars(chosenMaxLife);
 function checkMonsterHealth() {
   if (currentMonsterHealth <= 0) {
     alert("You slayed the monster!");
+    reset();
     return true;
   }
 }
@@ -22,12 +23,12 @@ function checkPlayerHealth() {
   if (currentPlayerHealth <= 0 && hasBonusLife) {
     hasBonusLife = false;
     removeBonusLife();
-    useBonusLife(chosenMaxLife);
+    setPlayerHealth(chosenMaxLife);
     currentPlayerHealth = chosenMaxLife;
     alert("You've been revived!");
   } else if (currentPlayerHealth <= 0) {
     alert("The monster will eat you now!");
-    1;
+    reset();
   }
 }
 
@@ -75,6 +76,12 @@ function healPlayerHandler() {
   increasePlayerHealth(healValue);
   currentPlayerHealth += healValue;
   attackPlayer();
+}
+
+function reset() {
+  currentPlayerHealth = chosenMaxLife;
+  currentMonsterHealth = chosenMaxLife;
+  resetGame(chosenMaxLife);
 }
 
 attackBtn.addEventListener("click", attackHandler);

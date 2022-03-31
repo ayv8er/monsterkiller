@@ -30,10 +30,6 @@ function increasePlayerHealth(healValue) {
   playerHealthBar.value = +playerHealthBar.value + healValue;
 }
 
-function useBonusLife(maxLife) {
-  playerHealthBar.value = maxLife;
-}
-
 function resetGame(value) {
   playerHealthBar.value = value;
   monsterHealthBar.value = value;
