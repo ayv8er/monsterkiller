@@ -1,9 +1,11 @@
-const chosenMaxLife = 100;
 const PLAYER_ATTACK_VALUE = 10;
 const PLAYER_STRONG_ATTACK_VALUE = 15;
 const MONSTER_ATTACK_VALUE = 15;
 const HEAL_PLAYER_VALUE = 20;
 
+let chosenMaxLife = 100;
+let hasBonusLife = true;
+let playerStrongAttacks = 3;
 let currentMonsterHealth = chosenMaxLife;
 let currentPlayerHealth = chosenMaxLife;
 
@@ -17,8 +19,15 @@ function checkMonsterHealth() {
 }
 
 function checkPlayerHealth() {
-  if (currentPlayerHealth <= 0) {
+  if (currentPlayerHealth <= 0 && hasBonusLife) {
+    hasBonusLife = false;
+    removeBonusLife();
+    useBonusLife(chosenMaxLife);
+    currentPlayerHealth = chosenMaxLife;
+    alert("You've been revived!");
+  } else if (currentPlayerHealth <= 0) {
     alert("The monster will eat you now!");
+    1;
   }
 }
 
@@ -33,7 +42,12 @@ function attackMonster(attackMode) {
   if (attackMode === "ATTACK") {
     maxDamage = PLAYER_ATTACK_VALUE;
   } else {
-    maxDamage = PLAYER_STRONG_ATTACK_VALUE;
+    if (playerStrongAttacks) {
+      playerStrongAttacks -= 1;
+      maxDamage = PLAYER_STRONG_ATTACK_VALUE;
+    } else {
+      maxDamage = PLAYER_ATTACK_VALUE;
+    }
   }
   const monsterDamage = dealMonsterDamage(maxDamage);
   currentMonsterHealth -= monsterDamage;
