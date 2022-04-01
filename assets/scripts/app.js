@@ -14,15 +14,26 @@ const LOG_GG = "GAME_OVER";
 
 const battleLog = [];
 
-const enteredValue = prompt(
-  "Enter maximum health points for you and the monster.",
-  "100"
-);
+function getMaxLifeValues() {
+  const enteredValue = prompt(
+    "Enter maximum health points for you and the monster.",
+    "100"
+  );
+  const parsedValue = parseInt(enteredValue);
+  if (isNaN(parsedValue) || parsedValue <= 0) {
+    throw { message: "Invalid user input, not a number!" };
+  }
+  return parsedValue;
+}
 
-let chosenMaxLife = +enteredValue;
+let chosenMaxLife;
 
-if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
+try {
+  chosenMaxLife = getMaxLifeValues();
+} catch (error) {
+  console.log(error);
   chosenMaxLife = 100;
+  alert("User input was invalid, default value of 100 was used.");
 }
 
 let logCount;
