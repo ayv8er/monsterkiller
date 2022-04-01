@@ -25,6 +25,7 @@ if (isNaN(chosenMaxLife) || chosenMaxLife <= 0) {
   chosenMaxLife = 100;
 }
 
+let logCount;
 let hasBonusLife = true;
 let playerStrongAttacks = 3;
 let currentMonsterHealth = chosenMaxLife;
@@ -71,6 +72,7 @@ function attackPlayer() {
     currentMonsterHealth,
     currentPlayerHealth
   );
+  logCount = null;
   checkPlayerHealth();
 }
 
@@ -132,7 +134,24 @@ function reset() {
 }
 
 function printLogHandler() {
-  console.log(battleLog);
+  if (battleLog.length < 0) {
+    console.log("There is no log record");
+  } else {
+    switch (true) {
+      case logCount < 0:
+        console.log("This is the end of the log record");
+        break;
+      case !logCount:
+        logCount = battleLog.length - 1;
+      case logCount > 0:
+        for (let i = logCount - 1; i <= logCount; i++) {
+          for (const key in battleLog[i]) {
+            console.log(`${key} ==> ${battleLog[i][key]}`);
+          }
+        }
+        logCount -= 2;
+    }
+  }
 }
 
 attackBtn.addEventListener("click", attackHandler);
